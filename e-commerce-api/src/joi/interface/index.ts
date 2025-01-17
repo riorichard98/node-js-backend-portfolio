@@ -4,3 +4,4 @@
  */
 
 export * from './auth-joi';
+export * from './product-joi';

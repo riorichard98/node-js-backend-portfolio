@@ -10,6 +10,6 @@ export interface ErrorResponse {
     message: string;
 }
 
-export interface Handler {
-    (req: Request, res: Response, next?: NextFunction): Promise<void> | void;
+export interface LogicHandler {
+    (req: Request): Promise<{ data: any, statusCode: number }> | { data: any, statusCode: number }
 }
