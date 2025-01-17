@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db" // for persistent SQLite
+}
+
+// Define Product entity
+model Product {
+  productId     String   @id @default(uuid()) @map("product_id")
+  name          String   @map("name")
+  description   String?  @map("description")
+  price         Float    @map("price")
+  stockQuantity Int      @map("stock_quantity")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+}
+
+// Define User entity
+model User {
+  userId       String        @id @default(uuid()) @map("user_id")
+  fullName     String        @map("full_name")
+  email        String        @unique @map("email")
+  passwordHash String        @map("password_hash")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  transactions Transaction[]
+}
+
+// Define Transaction entity
+model Transaction {
+  transactionId String            @id @default(uuid()) @map("transaction_id")
+  userId        String            @map("user_id")
+  totalAmount   Float             @map("total_amount")
+  status        TransactionStatus @map("status")
+  createdAt     DateTime          @default(now()) @map("created_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
+  user          User              @relation(fields: [userId], references: [userId])
+  payments      Payment[]
+  shipments     Shipment[]
+}
+
+// Define Payment entity
+model Payment {
+  paymentId     String        @id @default(uuid()) @map("payment_id")
+  transactionId String        @map("transaction_id")
+  paymentMethod String        @map("payment_method")
+  amount        Float         @map("amount")
+  status        PaymentStatus @map("status")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+  transaction   Transaction   @relation(fields: [transactionId], references: [transactionId])
+}
+
+// Define Shipment entity
+model Shipment {
+  shipmentId     String         @id @default(uuid()) @map("shipment_id")
+  transactionId  String         @map("transaction_id")
+  status         ShipmentStatus @map("status")
+  trackingNumber String?        @map("tracking_number")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  transaction    Transaction    @relation(fields: [transactionId], references: [transactionId])
+}
+
+// Enum for Transaction Status
+enum TransactionStatus {
+  PENDING
+  PAID
+  CANCELED
+}
+
+// Enum for Payment Status
+enum PaymentStatus {
+  SUCCESS
+  FAILED
+  PENDING
+}
+
+// Enum for Shipment Status
+enum ShipmentStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+}
