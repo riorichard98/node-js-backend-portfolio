@@ -1,8 +1,12 @@
 import { Router } from "express";
 
-const userRouter = Router();
+import { handlerWrapper as h} from "../middleware/handler-wrapper";
+import { userHandler } from "../handler/user-handler";
+import { authMiddleware } from "../middleware/auth-middleware";
 
-// userRouter.get('/:userId',...); // detail user by userId
-// userRouter.put('/:userId',...); // update user by userId
+const userRouter = Router();
+userRouter.use(authMiddleware)
+userRouter.get('',h(userHandler.userDetail)); // detail user by logged in userId
+userRouter.put('',h(userHandler.updateUser)); // update user by logged in userId
 
 export default userRouter;
