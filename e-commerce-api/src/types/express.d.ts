@@ -1,4 +1,4 @@
-import * as express from 'express'; // Ensures the file is treated as a module
+import express from 'express'; // Ensures the file is treated as a module
 import { User } from '@prisma/client';
 
 declare global {
