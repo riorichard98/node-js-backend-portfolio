@@ -20,6 +20,9 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
         req.user = userFound;
         next()
     } catch (error) {
-        return res.status(401).json(GENERAL_ERROR_MESSAGE.UNAUTHORIZED)
+        next({
+            statusCode: 401,
+            message: GENERAL_ERROR_MESSAGE.UNAUTHORIZED
+        })
     }
 }
