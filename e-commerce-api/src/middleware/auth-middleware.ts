@@ -17,7 +17,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
             }
         })
         if (!userFound) throw new Error('invalid user');
-        req.userId = payload.userId;
+        req.user = userFound;
         next()
     } catch (error) {
         return res.status(401).json(GENERAL_ERROR_MESSAGE.UNAUTHORIZED)
