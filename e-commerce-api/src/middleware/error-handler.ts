@@ -18,9 +18,9 @@ export const errorHandler = (err: CustomError | Error, req: Request, res: Respon
   res.status(errorCode).json(responseJson);
 };
 
-export const throwRequestError = (message: string): void => {
+export const throwRequestError = (message: string, statusCode = 400): void => {
   throw ({
-    statusCode: 400,
+    statusCode,
     message
   })
 }
