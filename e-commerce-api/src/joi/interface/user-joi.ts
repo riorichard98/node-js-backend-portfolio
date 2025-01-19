@@ -3,6 +3,8 @@
  * Do not modify this file manually
  */
 
-export * from './auth-joi';
-export * from './product-joi';
-export * from './user-joi';
+export interface UpdateUserRequest {
+  email?: string;
+  fullName?: string;
+  password?: string;
+}
