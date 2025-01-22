@@ -5,3 +5,11 @@ export interface RegisterResponse {
 export interface LoginResponse {
     token: string
 }
+
+export interface BuyProductResponse {
+    transactionId: string
+}
+
+export interface CreateNewPaymentResponse {
+    paymentId: string
+}

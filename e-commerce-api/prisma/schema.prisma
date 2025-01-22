@@ -22,6 +22,8 @@ model Product {
   stockQuantity Int      @map("stock_quantity")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
+
+  transactions Transaction[]
 }
 
 // Define User entity
@@ -41,9 +43,12 @@ model Transaction {
   userId        String            @map("user_id")
   totalAmount   Float             @map("total_amount")
   status        TransactionStatus @map("status")
+  productId     String            @map("product_id")
+  quantity      Int               @map("product_quantity")
   createdAt     DateTime          @default(now()) @map("created_at")
   updatedAt     DateTime          @updatedAt @map("updated_at")
   user          User              @relation(fields: [userId], references: [userId])
+  product       Product           @relation(fields: [productId], references: [productId])
   payments      Payment[]
   shipments     Shipment[]
 }
@@ -52,7 +57,7 @@ model Transaction {
 model Payment {
   paymentId     String        @id @default(uuid()) @map("payment_id")
   transactionId String        @map("transaction_id")
-  paymentMethod String        @map("payment_method")
+  paymentMethod PaymentMethod @map("payment_method")
   amount        Float         @map("amount")
   status        PaymentStatus @map("status")
   createdAt     DateTime      @default(now()) @map("created_at")
@@ -90,4 +95,10 @@ enum ShipmentStatus {
   PENDING
   SHIPPED
   DELIVERED
+}
+
+// enum for payment method
+enum PaymentMethod {
+  VA
+  QRIS
 }
