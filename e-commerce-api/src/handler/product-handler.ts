@@ -5,8 +5,6 @@ import { validateRequest } from '../utils/common';
 import { productListFilter } from '../joi/interface';
 import { Prisma } from '@prisma/client';
 import prisma from '../models/primsa-client';
-import { throwRequestError } from '../middleware/error-handler';
-import { GENERAL_ERROR_MESSAGE } from '../constants/general-error-message';
 
 const insertProduct = async (req: Request) => {
     const body = validateRequest(insertProductSchema, req.body);
