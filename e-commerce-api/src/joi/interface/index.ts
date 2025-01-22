@@ -5,4 +5,5 @@
 
 export * from './auth-joi';
 export * from './product-joi';
+export * from './transaction-joi';
 export * from './user-joi';
