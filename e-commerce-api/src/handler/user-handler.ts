@@ -1,5 +1,4 @@
 import { Request } from "express";
-import { User } from "@prisma/client";
 import dayjs from "dayjs";
 
 import { validateRequest } from "../utils/common"
@@ -7,7 +6,7 @@ import { updateUserSchema } from "../joi/schema/user-joi"
 import { userUsecase } from "../usecase/user-usecase"
 
 const userDetail = (req: Request) => {
-    const { fullName, email, createdAt, updatedAt } = req.user as User
+    const { fullName, email, createdAt, updatedAt } = req.user;
     const data = {
         fullName,
         email,
@@ -19,7 +18,7 @@ const userDetail = (req: Request) => {
 
 const updateUser = async (req: Request) => {
     const body = validateRequest(updateUserSchema, req.body)
-    await userUsecase.updateUser(body, req.user?.userId as string)
+    await userUsecase.updateUser(body, req.user.userId )
     return { data: {}, statusCode: 200 }
 }
 
