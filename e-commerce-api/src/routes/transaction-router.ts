@@ -12,4 +12,6 @@ transactionRouter.get('/:transactionId', h(transactionHandler.transactionDetail)
 transactionRouter.post('/payments', h(transactionHandler.createNewPayment)); // making payment
 transactionRouter.get('/payments/:paymentId', h(transactionHandler.paymentDetail)); // payment detail for the payment status
 
+transactionRouter.post('/payments/process/:paymentId', h(transactionHandler.requestToProcessPayment)) // request to process payment
+
 export default transactionRouter;
