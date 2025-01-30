@@ -1,0 +1,3 @@
+export const MQ_SEVERITY = {
+    PROCESS_PAYMENT: 'PROCESS_PAYMENT'
+}
