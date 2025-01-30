@@ -43,9 +43,16 @@ const paymentDetail = async (req: Request) => {
     return { data: paymentFound, statusCode: 200 };
 }
 
+const requestToProcessPayment = async (req: Request) => {
+    const paymentId = req.params.paymentId
+    await transactionUsecase.processPayment(paymentId)
+    return { data: {}, statusCode: 200 }
+}
+
 export const transactionHandler = {
     buyProduct,
     transactionDetail,
     createNewPayment,
-    paymentDetail
+    paymentDetail,
+    requestToProcessPayment
 }
