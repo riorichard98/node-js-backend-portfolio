@@ -4,7 +4,8 @@ import { Environment } from './interface';
 
 const envSchema = Joi.object({
     PORT: Joi.number().port().required(),
-    JWT_SECRET: Joi.string().required()
+    JWT_SECRET: Joi.string().required(),
+    RABBIT_MQ_URL: Joi.string().required()
 }).unknown(true)
 
 const { error, value: validatedEnv } = envSchema.validate(process.env, { abortEarly: false });
